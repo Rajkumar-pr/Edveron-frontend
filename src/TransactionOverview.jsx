@@ -11,6 +11,9 @@ function TransactionsOverview() {
   const [statusFilter, setStatusFilter] = useState("all");
   const [schoolIdFilter, setSchoolIdFilter] = useState("");
 
+  // Define the base URL for your Render backend
+  const BASE_URL = "https://edveron-backend.onrender.com";
+
   useEffect(() => {
     setStatusFilter(searchParams.get("status") || "all");
     setSchoolIdFilter(searchParams.get("schoolId") || "");
@@ -31,7 +34,7 @@ function TransactionsOverview() {
       if (status && status !== "all") query.set("status", status);
       if (schoolId) query.set("schoolId", schoolId);
 
-      const res = await fetch(`http://localhost:8080/api/order/transactions1?${query.toString()}`, {
+      const res = await fetch(`${BASE_URL}/api/order/transactions1?${query.toString()}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
