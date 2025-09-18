@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -10,9 +11,10 @@ function AuthPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const BASE_URL = "https://edveron-backend.onrender.com";
     const endpoint = isLogin
-      ? "http://localhost:8080/api/user/login"
-      : "http://localhost:8080/api/user/signup";
+      ? `${BASE_URL}/api/user/login`
+      : `${BASE_URL}/api/user/signup`;
 
     const bodyData = isLogin
       ? { email, password }
@@ -31,10 +33,9 @@ function AuthPage() {
 
       if (response.ok) {
         console.log('Success:', data);
-        alert(isLogin?"Login Done Successfully":"Signup Done Successfully");
+        alert(isLogin ? "Login Done Successfully" : "Signup Done Successfully");
         if (data.token) {
           localStorage.setItem('token', data.token);
-       
         }
         navigate("/payment");
       } else {
