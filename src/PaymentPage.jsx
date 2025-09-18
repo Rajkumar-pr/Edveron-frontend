@@ -9,9 +9,11 @@ function PaymentPage() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
+  const BASE_URL = "https://edveron-backend.onrender.com";
+
   const getTransaction = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/order/transactions", {
+      const response = await fetch(`${BASE_URL}/api/order/transactions`, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,
@@ -26,7 +28,7 @@ function PaymentPage() {
 
   const AddWebhook = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/order/webhook", {
+      const response = await fetch(`${BASE_URL}/api/order/webhook`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,7 +61,7 @@ function PaymentPage() {
 
   const createPayment = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/order/create-payment", {
+      const response = await fetch(`${BASE_URL}/api/order/create-payment`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -88,7 +90,7 @@ function PaymentPage() {
     if (!collectId) return alert("⚠️ No collect ID found!");
     try {
       const response = await fetch(
-        `http://localhost:8080/api/order/payment-status/${collectId}?school_id=65b0e6293e9f76a9694d84b4`,
+        `${BASE_URL}/api/order/payment-status/${collectId}?school_id=65b0e6293e9f76a9694d84b4`,
         {
           headers: {
             "Authorization": `Bearer ${token}`,
